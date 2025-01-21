@@ -36,15 +36,15 @@ def SolveProblem(domainDisc, approxSpace):
 # ## Problem definition
 
 class CookieProblem:
-    def __init__(self):
-        self.myGridName= "cookie4.ugx" # grids/unit_square_tri.ugx",
-        self.myNumRefs= 3
-        self.mySubsets = {"Inner", "Cookie1", "Cookie2", "Cookie3", "Cookie4"}
-        self.diffusionCoeffs = [1.0, 0.1, 1.0, 1.0, 0.1]
+    #def __init__(self):
+    #    self.myGridName= "cookie4.ugx" # grids/unit_square_tri.ugx",
+    #    self.myNumRefs= 3
+    #    self.mySubsets = {"Inner", "Cookie1", "Cookie2", "Cookie3", "Cookie4"}
+    #    self.diffusionCoeffs = [1.0, 0.1, 1.0, 1.0, 0.1]
     
-    def __init__(self, gridName, numRefs, diffusionCoeffs):
+    def __init__(self, gridName="cookie4.ugx", numRefs=0, diffusionCoeffs=[1.0, 0.1, 1.0, 1.0, 0.1]):
         self.myGridName=gridName
-        self.myNumRefs= numRefs
+        self.myNumRefs=numRefs
         self.mySubsets = {"Inner", "Cookie1", "Cookie2", "Cookie3", "Cookie4"}
         self.diffusionCoeffs = diffusionCoeffs
 
@@ -58,7 +58,8 @@ class CookieProblem:
 #        return False, 0.0
     
     def CreateApproxSpace(self):
-
+        print(self.myNumRefs)
+        print(self.diffusionCoeffs)
     # ## Computational domain
         dom = util.CreateDomain(self.myGridName, self.myNumRefs, self.mySubsets)
 
@@ -115,8 +116,8 @@ class CookieProblem:
 # ## Output of results
     def ComputeQoI(self):
     
-        approxSpace=myProblem.CreateApproxSpace()
-        domainDisc=myProblem.CreateDomainDisc(approxSpace)
+        approxSpace=self.CreateApproxSpace()
+        domainDisc=self.CreateDomainDisc(approxSpace)
 
         x=SolveProblem(domainDisc, approxSpace)
     
@@ -130,8 +131,8 @@ class CookieProblem:
 
 
 # Example call
-myProblem = CookieProblem("cookie4.ugx", 3, [1.0, 0.1, 1.0, 1.0, 0.1])
-qoi=myProblem.ComputeQoI()
+#myProblem = CookieProblem("cookie4.ugx", 3, [1.0, 0.1, 1.0, 1.0, 0.1])
+#qoi=myProblem.ComputeQoI()
 
 
 #ug4.SaveVectorForConnectionViewer(x, solFileName + ".vec")

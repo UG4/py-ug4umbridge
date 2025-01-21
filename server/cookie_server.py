@@ -1,6 +1,9 @@
 import umbridge
 import time
 import os
+import json
+
+import array
 
 from cookie_problem import CookieProblem
 
@@ -22,12 +25,22 @@ class CookieModel(umbridge.Model):
        
         print(parameters)
         print(config)
+
+        #jconfig = json.loads(config)
+        #print(jconfig)
+
+        refLvl = 0
+        if "level" in config:
+            refLvl=config['level']
         
         # Create and solve problem.
-        myProblem = CookieProblem("cookie4.ugx", 3, np.append([1.0], parameters))
+        # print ("refLvl="+str(refLvl))
+        # print(parameters[0])
+        myProblem = CookieProblem("cookie4.ugx", refLvl, [1.0] + parameters[0])
         qoi=myProblem.ComputeQoI()
-        
-        return [[qoi]]
+
+        print(qoi)
+        return [qoi]
 
     def supports_evaluate(self):
         return True
